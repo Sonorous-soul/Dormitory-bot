@@ -1,0 +1,24 @@
+[
+    {
+        "id": "9f51511a-323f-4c17-ba07-3b76ca26bf8c",
+        "user_id": 861116413,
+        "type": "Maintenance",
+        "name_and_id": "Abel",
+        "block_and_dorm": "Yu",
+        "issue": "Bdbd",
+        "photo_file_id": null,
+        "status": "pending",
+        "timestamp": "2025-12-30 18:41:34 UTC"
+    },
+    {
+        "id": "7f7ba842-6314-405c-baec-9c178b0d8836",
+        "user_id": 583776424,
+        "type": "Maintenance",
+        "name_and_id": "fc s",
+        "block_and_dorm": "643",
+        "issue": "bvtdgfv",
+        "photo_file_id": null,
+        "status": "pending",
+        "timestamp": "2025-12-31 08:32:57 UTC"
+    }
+]
