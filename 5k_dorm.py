@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 import logging
 
@@ -20,8 +21,10 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-BOT_TOKEN = "8368095636:AAEgAKhHe3yH58tut4XIhmX6wnRlf_28VDo"
-ADMIN_UIDS = [583776424,975531466]
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+if not BOT_TOKEN:
+    raise RuntimeError("BOT_TOKEN not set")
+ADMIN_UIDS = [583776424]
 # RECEIVER_BOT_TOKEN = "7971470109:AAEu-YxpTVlZJyjhuDR7gRbV91BIiBDOqLg"
 
 START, NAME_AND_ID, BLOCK_AND_DORM_NO, ISSUE_REPORT, ISSUE_ALREADY_REPORT,LOST_AND_FOUND, FOUND_DESC, FOUND_PHOTO, FOUND_REPORTED, LOST_REPORTED = range(10)
@@ -125,12 +128,12 @@ async def start_reply(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     elif update.message.text == "Found Item":
         context.user_data['username'] = update.message.from_user
 
-    await update.message.reply_text(
+        await update.message.reply_text(
         "You are reporting a FOUND item.\n\n"
         "Please describe the item you found.",
         reply_markup=ReplyKeyboardRemove(),
     )
-    return FOUND_DESC
+        return FOUND_DESC
 
     
 
@@ -339,7 +342,7 @@ def main() -> None:
         states={
            START: [
                 MessageHandler(
-                filters.Regex("(?i)^(Get Info|Report an Issue|Lost and Found|Found Item)$"),
+                filters.Regex("(?i)^(Get Info|Report an Issue|Lost item|Found Item)$"),
                  start_reply
                  )
             ],
