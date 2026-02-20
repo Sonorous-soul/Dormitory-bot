@@ -1,4 +1,6 @@
 import os
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from datetime import datetime
 import logging
 from dotenv import load_dotenv
@@ -333,8 +335,27 @@ async def issue_already_report(update: Update, context: ContextTypes.DEFAULT_TYP
 
 #     return ISSUE
 
+def run_health_server():
+    port = int(os.environ.get("PORT", 8080))
+
+    class HealthHandler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"OK")
+
+        def log_message(self, format, *args):
+            pass  # suppress access logs
+
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    server.serve_forever()
+
+
 def main() -> None:
     """Run the bot."""
+    # Start health check server in background thread for Render keep-alive
+    threading.Thread(target=run_health_server, daemon=True).start()
+
     # Create the Application and pass it your bot's token.
     application = Application.builder().token(BOT_TOKEN).build()
     
