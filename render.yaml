@@ -1,0 +1,9 @@
+services:
+  - type: worker
+    name: dormitory-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python 5k_dorm.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false

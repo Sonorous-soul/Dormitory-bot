@@ -1,6 +1,9 @@
 import os
 from datetime import datetime
 import logging
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import (
