@@ -2,6 +2,7 @@ services:
   - type: worker
     name: dormitory-bot
     runtime: python
+    pythonVersion: "3.12.3"
     buildCommand: pip install -r requirements.txt
     startCommand: python 5k_dorm.py
     envVars:
